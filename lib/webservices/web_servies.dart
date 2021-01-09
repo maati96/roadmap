@@ -1,38 +1,48 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:roadmap/models/category_list.dart';
 import 'package:roadmap/models/roadmap_model.dart';
 import 'package:roadmap/models/sub_category_model.dart';
-import 'package:roadmap/utilities/auth/auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:roadmap/webservices/auth/auth.dart';
 
-class Resource {
-  final String url;
-  Function(Response response) parse;
 
-  Resource({this.url, this.parse});
-}
 
 class WebService {
-  Future load(Resource resource) async {
+  final baseURL = 'https://roadmap-django-api.herokuapp.com/roadmap/';
+
+Future<List<CategoryListModel>> fromAllCategory() async {
     String token = await Auth().getToken();
     final response = await http.get(
-        'https://roadmap-django-api.herokuapp.com/roadmap/${resource.url}',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Authorization': 'Token $token'
-        });
-    print(response.body);
-    print(token);
-    return resource.parse(response);
+      baseURL + 'categories',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Authorization': 'Token $token'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<CategoryListModel> allCategoryList = [];
+
+      var body = jsonDecode(response.body);
+      for (var item in body) {
+        allCategoryList.add(CategoryListModel.fromJson(item));
+      }
+
+      return allCategoryList;
+    } else {
+      print(response.statusCode);
+    }
   }
+
+
 
   Future<List<SubCateogryModel>> fromCategory() async {
     String token = await Auth().getToken();
-
     final response = await http.get(
-      'https://roadmap-django-api.herokuapp.com/roadmap/categories/coding',
+      baseURL + 'categories/coding',
       headers: {
         'Content-Type': 'application/json',
         'Accept': '*/*',
@@ -58,7 +68,7 @@ class WebService {
     String token = await Auth().getToken();
 
     final response = await http.get(
-      'https://roadmap-django-api.herokuapp.com/roadmap/categories/coding/python',
+      baseURL + 'categories/coding/python',
       headers: {
         'Content-Type': 'application/json',
         'Accept': '*/*',

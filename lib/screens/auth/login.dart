@@ -3,10 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:roadmap/main.dart';
 import 'package:roadmap/screens/auth/forget_password.dart';
 import 'package:roadmap/screens/auth/signup.dart';
-import 'package:roadmap/utilities/auth/auth.dart';
 import 'package:roadmap/utilities/storage.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:roadmap/webservices/auth/auth.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -16,19 +14,43 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final SecureStorage secureStorage = SecureStorage();
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> _key = new GlobalKey();
-  String username, email, password;
 
- 
+  _submit() {
+    var username = emailController.text;
+    var password = passwordController.text;
+    Provider.of<Auth>(context, listen: false).attemptLogIn(
+        data: {
+          "username": username,
+          "password": password,
+        },
+        success: () {
+          if (username != null) {
+            storage.write(key: 'key', value: username);
+          } else if (password != null) {
+            storage.write(key: 'key', value: password);
+          }
+          Navigator.of(context).pushNamed('/start');
+        },
+        error: () {
+          displayDialog(context, "error", "error in login");
+        });
+  }
 
-  Future<String> attemptLogIn(String username, String password) async {
-    var res = await http.post(
-        "https://roadmap-django-api.herokuapp.com/rest-auth/login/",
-        body: {"username": username, "password": password});
-    if (res.statusCode == 200) return res.body;
-    return null;
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController(text: "");
+    passwordController = TextEditingController(text: "");
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,136 +58,129 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.topCenter,
-                child: Image(
-                  image: AssetImage('assets/images/logo.png'),
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Image(
+                    image: AssetImage('assets/images/logo.png'),
+                  ),
                 ),
-              ),
-              signInForm(),
-              Container(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text("OR",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Column(
-                  children: [
-                    _flatButton("Login with Facebook",
-                        [Color(0xFF367FC0), Color(0xFF367FC0)]),
-                    _flatButton("Login with Google",
-                        [Color(0xFFDD4B39), Color(0xFFDD4B39)]),
-                  ],
+                signInForm(),
+                Container(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Text("OR",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      )),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("New user?"),
-                    RaisedButton(
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(color: Color(0xFFFD8176)),
+                Container(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Column(
+                    children: [
+                      _flatButton("Login with Facebook",
+                          [Color(0xFF367FC0), Color(0xFF367FC0)]),
+                      _flatButton("Login with Google",
+                          [Color(0xFFDD4B39), Color(0xFFDD4B39)]),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("New user?"),
+                      RaisedButton(
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: Color(0xFFFD8176)),
+                        ),
+                        color: Colors.transparent,
+                        elevation: 0,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Signup()),
+                          );
+                        },
                       ),
-                      color: Colors.transparent,
-                      elevation: 0,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Signup()),
-                        );
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
+              ],
+            )),
       ),
     );
   }
 
   Widget signInForm() {
-    return Consumer<Auth>(builder: (context, auth, child) {
-      return Container(
-        padding: EdgeInsets.only(top: 20),
-        child: Form(
-          key: _key,
-          autovalidateMode: AutovalidateMode.always,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: emailController,
-                validator: validateUserName,
-                onSaved: (String val) {
-                  username = val;
-                },
-                decoration: InputDecoration(
-                  hintText: 'you@example.com',
-                  labelText: 'Email Adress',
-                  prefixIcon: Icon(Icons.email),
-                  labelStyle: TextStyle(
-                    color: Color(0xFFFD7E77),
-                  ),
+    return Container(
+      padding: EdgeInsets.only(top: 20),
+      child: Form(
+        key: _key,
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              controller: emailController,
+              validator: validateUserName,
+              decoration: InputDecoration(
+                hintText: 'you@example.com',
+                labelText: 'Email Adress',
+                prefixIcon: Icon(Icons.email),
+                labelStyle: TextStyle(
+                  color: Color(0xFFFD7E77),
                 ),
               ),
-              TextFormField(
-                obscureText: true,
-                controller: passwordController,
-                validator: (String val) {
-                  if (val.isEmpty) {
-                    return "plese enter your password";
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  hintText: 'Enter your Password',
-                  labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock),
-                  labelStyle: TextStyle(
-                    color: Color(0xFFFD7E77),
-                  ),
+            ),
+            TextFormField(
+              obscureText: true,
+              controller: passwordController,
+              validator: (String val) {
+                if (val.isEmpty) {
+                  return "plese enter your password";
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                hintText: 'Enter your Password',
+                labelText: 'Password',
+                prefixIcon: Icon(Icons.lock),
+                labelStyle: TextStyle(
+                  color: Color(0xFFFD7E77),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  alignment: Alignment.topRight,
-                  child: RaisedButton(
-                    child: Text("ForgetPassword"),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ForgetPassword()),
-                      );
-                    },
-                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                alignment: Alignment.topRight,
+                child: RaisedButton(
+                  child: Text("ForgetPassword"),
+                  color: Colors.transparent,
+                  elevation: 0,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgetPassword()),
+                    );
+                  },
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _flatButton("Login", [Color(0xFFFF5B7F), Color(0xFFFC9272)])
-                ],
-              ),
-            ],
-          ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _flatButton("Login", [Color(0xFFFF5B7F), Color(0xFFFC9272)])
+              ],
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 
   Widget _flatButton(String text, List<Color> color) {
@@ -187,11 +202,8 @@ class _LoginState extends State<Login> {
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
         onPressed: () async {
-          var username = emailController.text;
-          var password = passwordController.text;
-          var key = await attemptLogIn(username, password);
-          if (key != null) {
-            storage.write(key: 'key', value: key);
+          if (_key.currentState.validate()) {
+            _submit();
           }
         },
       ),

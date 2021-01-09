@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/models/category_list.dart';
-import 'package:roadmap/screens/category/category_sub_list.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 
 class CategoryList extends StatefulWidget {
+  final CategoryListModel _categoryListModel;
+  CategoryList({CategoryListModel categoryListModel})
+      : _categoryListModel = categoryListModel;
+
   @override
   _CategoryListState createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
   bool _isLike = false;
-  CategoryListModel categoryListModel;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -24,7 +27,7 @@ class _CategoryListState extends State<CategoryList> {
           ),
         ),
         body: FutureBuilder(
-          future: WebService().load(CategoryListModel.all),
+          future: WebService().fromAllCategory(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(
@@ -41,10 +44,12 @@ class _CategoryListState extends State<CategoryList> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
-                    child: _buildCategoryList(snapshot.data[index]),
+                    child: _buildCategoryList(snapshot.data[index], context),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CategorySubList()));
+                      Navigator.of(context).pushNamed(
+                        '/categoryItems',
+                        arguments: snapshot.data[index],
+                      );
                     },
                   );
                 },
@@ -64,7 +69,7 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  Widget _buildCategoryList(CategoryListModel categoryListModel) {
+  Widget _buildCategoryList(CategoryListModel categoryListModel, BuildContext context) {
     return Stack(
       children: [
         Padding(
@@ -110,17 +115,7 @@ class _CategoryListState extends State<CategoryList> {
               size: 30,
             ),
             onPressed: () {
-              setState(() {
-                if (!_isLike) {
-                  setState(() {
-                    _isLike = true;
-                  });
-                } else {
-                  setState(() {
-                    _isLike = false;
-                  });
-                }
-              });
+             
             },
           ),
         ),

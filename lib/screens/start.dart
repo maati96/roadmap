@@ -6,6 +6,10 @@ import 'package:roadmap/screens/home.dart';
 import 'profile/profile.dart';
 
 class StartNavigationButtom extends StatefulWidget {
+  final String data;
+
+  StartNavigationButtom({this.data});
+
   @override
   _StartNavigationButtomState createState() => _StartNavigationButtomState();
 }

@@ -2,20 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:roadmap/models/roadmap_model.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 import 'package:roadmap/widgets/custom_bar.dart';
-import 'package:sliver_fab/sliver_fab.dart';
 
-class RoadmapDetail extends StatefulWidget {
-  @override
-  _RoadmapDetailState createState() => _RoadmapDetailState();
-}
 
-class _RoadmapDetailState extends State<RoadmapDetail> {
-  @override
-  void initState() {
-    WebService().fromRoadmap();
 
-    super.initState();
-  }
+class RoadmapDetail extends StatelessWidget {
+ final  RoadmapModel _roadmapModel;
+ RoadmapDetail({RoadmapModel roadmapModel}) : _roadmapModel  = roadmapModel;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +110,12 @@ class _RoadmapDetailState extends State<RoadmapDetail> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 30,
+                                  height: 10,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  
+                                  child: Text(roadmap[index].description, textAlign: TextAlign.center,),
                                 ),
                               ],
                             );
@@ -137,6 +134,4 @@ class _RoadmapDetailState extends State<RoadmapDetail> {
       ),
     );
   }
-
-  
 }

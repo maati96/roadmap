@@ -33,13 +33,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.1 
   provider: ^4.3.2+3
-  path_provider: ^1.6.24
   http: ^0.12.2
   dio: ^3.0.10
   curved_navigation_bar: ^0.3.7
-  hive: ^1.4.4+1
-  mime: ^0.9.7
-  intl: ^0.16.1
+  sliver_fab: ^1.0.0
+  flutter_secure_storage: ^3.3.5
   file_picker: ^2.1.4
   google_sign_in: ^4.5.6
  

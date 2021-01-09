@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:roadmap/main.dart';
 import 'package:roadmap/screens/auth/forget_password.dart';
 import 'package:roadmap/screens/auth/signup.dart';
 import 'package:roadmap/utilities/auth/auth.dart';
-import 'package:roadmap/widgets/ErrorDialog.dart';
+import 'package:roadmap/utilities/storage.dart';
+import 'package:http/http.dart' as http;
 
-import '../start.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,30 +14,21 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final SecureStorage secureStorage = SecureStorage();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> _key = new GlobalKey();
   String username, email, password;
 
-  void _submit() {
-    Provider.of<Auth>(context, listen: false).signin(
-        data: {
-          'username': emailController.text,
-          'password': passwordController.text,
-        },
-        success: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => StartNavigationButtom()));
-        },
-        error: () {
-          errorDialog(context: context, text: "الحقل فارغ");
-        });
-  }
+ 
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
+  Future<String> attemptLogIn(String username, String password) async {
+    var res = await http.post(
+        "https://roadmap-django-api.herokuapp.com/rest-auth/login/",
+        body: {"username": username, "password": password});
+    if (res.statusCode == 200) return res.body;
+    return null;
   }
 
   @override
@@ -194,10 +186,12 @@ class _LoginState extends State<Login> {
           text,
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        onPressed: () {
-          if (_key.currentState.validate()) {
-            
-            _submit();
+        onPressed: () async {
+          var username = emailController.text;
+          var password = passwordController.text;
+          var key = await attemptLogIn(username, password);
+          if (key != null) {
+            storage.write(key: 'key', value: key);
           }
         },
       ),
@@ -227,4 +221,11 @@ class _LoginState extends State<Login> {
       return null;
     }
   }
+
+  void displayDialog(BuildContext context, String title, String text) =>
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(title: Text(title), content: Text(text)),
+      );
 }

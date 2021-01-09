@@ -32,7 +32,23 @@ class Auth extends ChangeNotifier {
       notifyListeners();
       success();
     } catch (e) {
-      error();
+     print(e.toString());
+    }
+  }
+
+  Future signUp({Map data, Function success, Function error}) async {
+    try {
+      Dio.Response response = await dio().post(
+        'rest-auth/signup',
+        data: json.encode(data),
+      );
+      String token = json.decode(response.toString())['key'];
+      this.setToken(token);
+      this.attempt(token: token);
+      notifyListeners();
+      success();
+    } catch (e) {
+     print(e.toString());
     }
   }
 
@@ -45,24 +61,9 @@ class Auth extends ChangeNotifier {
       return;
     }
 
-    try {
-      Dio.Response response = await dio().get(
-        'rest-auth/user/',
-        options: Dio.Options(headers: {'Authorization': 'Token $token'}),
-      );
-
-      this.authenticated = true;
-      this.authenticatedUser = User.fromJson(
-        json.decode(
-          response.toString(),
-        ),
-      );
-
-      notifyListeners();
-    } catch (e) {
-      this.authenticated = false;
-    }
+    
   }
+  
 
   Future<bool> setToken(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

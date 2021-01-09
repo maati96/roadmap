@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:roadmap/webservices/resources.dart';
 
 List<RoadmapModel> roadmapModelFromJson(String str) => List<RoadmapModel>.from(
     json.decode(str).map((x) => RoadmapModel.fromJson(x)));
@@ -66,22 +65,6 @@ class RoadmapModel {
         "main_category": mainCategory,
         "sub_category": subCategory,
       };
-
-   static Resource fromRoadmap() {
-    return Resource(
-        url: 'categories/coding/python',
-        parse: (response) {
-          if (response.statusCode == 200) {
-            var parsed = json.decode(response.body);
-            final list = List<RoadmapModel>.from(
-                parsed.map((i) => RoadmapModel.fromJson(i)));
-
-            return list;
-          } else {
-            throw Exception('Failed to load roadmap');
-          }
-        });
-  }
 
 
 }

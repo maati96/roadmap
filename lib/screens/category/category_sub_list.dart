@@ -3,10 +3,18 @@ import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 
-class CategorySubList extends StatelessWidget {
-  final SubCateogryModel _subCateogryModel;
-  CategorySubList({SubCateogryModel subCateogryModel})
-      : _subCateogryModel = subCateogryModel;
+class CategorySubList extends StatefulWidget {
+  @override
+  _CategorySubListState createState() => _CategorySubListState();
+}
+
+class _CategorySubListState extends State<CategorySubList> {
+  @override
+  void initState() {
+    WebService().fromCategory();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -20,9 +28,8 @@ class CategorySubList extends StatelessWidget {
           ),
         ),
         body: FutureBuilder(
-          future: WebService().load(SubCateogryModel.fromCategory()),
+          future: WebService().fromCategory(),
           builder: (context, snapshot) {
-           
             if (snapshot.hasError) {
               return Center(
                 child: Column(

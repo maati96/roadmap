@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:roadmap/screens/profile/about.dart';
 import 'package:roadmap/screens/profile/contact.dart';
 import 'package:roadmap/screens/profile/profile_detail.dart';
@@ -11,6 +12,8 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  var storage = FlutterSecureStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +39,7 @@ class _UserProfileState extends State<UserProfile> {
               ),
             ),
           ),
-          Card(
-           
-          ),
+          Card(),
           Card(
             child: ListTile(
               leading: Icon(Icons.more_rounded, size: 56),
@@ -77,11 +78,17 @@ class _UserProfileState extends State<UserProfile> {
             ),
           ),
           Card(
-            child: ListTile(
-              leading: Icon(Icons.exit_to_app, size: 56),
-              title: Text('Logout'),
-              subtitle: Text('You can logout if you need'),
-              
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  storage.delete(key: 'key');
+                });
+              },
+              child: ListTile(
+                leading: Icon(Icons.exit_to_app, size: 56),
+                title: Text('Logout'),
+                subtitle: Text('You can logout if you need'),
+              ),
             ),
           ),
         ],

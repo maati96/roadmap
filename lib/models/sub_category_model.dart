@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:roadmap/webservices/resources.dart';
 
 List<SubCateogryModel> subCateogryModelFromJson(String str) =>
     List<SubCateogryModel>.from(
@@ -45,14 +44,5 @@ class SubCateogryModel {
         "parent": parent,
       };
 
-  static Resource fromCategory() {
-    return Resource(
-        url: 'categories/coding',
-        parse: (response) {
-          Iterable list = json.decode(response.body);
-          return list.map((model) {
-            return SubCateogryModel.fromJson(model);
-          }).toList();
-        });
-  }
+ 
 }

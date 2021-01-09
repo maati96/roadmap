@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:roadmap/webservices/resources.dart';
+import 'package:roadmap/webservices/web_servies.dart';
 
 List<CategoryListModel> categoryListModelFromJson(String str) =>
     List<CategoryListModel>.from(

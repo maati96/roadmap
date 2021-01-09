@@ -1,9 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import '../start.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -26,27 +23,16 @@ class _SignupState extends State<Signup> {
     super.dispose();
   }
 
-  void _submit() async {
-    var formData = formState.currentState;
-    if (formData.validate()) {
-      formData.save();
-      var data = {
-        "username": userNameController.text,
-        "email": emailController.text,
-        "password1": passwordController.text,
-        "password2": confirmPasswordController.text
-      };
-      var url = "https://roadmap-django-api.herokuapp.com/rest-auth/signup";
-      var response = await http.post(url, body: data);
-      var responseBody = jsonDecode(response.body.toString());
-      if (responseBody == true) {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => StartNavigationButtom()));
-      }
-      print(responseBody.toString());
-    } else {
-      print("error resiter");
-    }
+  Future<int> attemptSignUp(String username, String email, String password, String confirmPassword) async {
+    var res = await http.post(
+        'https://roadmap-django-api.herokuapp.com/rest-auth/signup',
+        body: {
+          "username": username,
+          "email": email,
+          "password1": password,
+          "password2": confirmPass,
+        });
+    return res.statusCode;
   }
 
   @override
@@ -203,10 +189,39 @@ class _SignupState extends State<Signup> {
           text,
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        onPressed: () {
-          _submit();
+        onPressed: () async {
+          var username = userNameController.text;
+          var email = emailController.text;
+          var password = passwordController.text;
+          var confirmPass = confirmPasswordController.text;
+          if (username.length < 4)
+            displayDialog(context, "Invalid Username",
+                "The username should be at least 4 characters long");
+          else if (password.length < 4)
+            displayDialog(context, "Invalid Password",
+                "The password should be at least 4 characters long");
+          else {
+            var res =
+                await attemptSignUp(username, email, password, confirmPass);
+            if (res == 201)
+              displayDialog(
+                  context, "Success", "The user was created. Log in now.");
+            else if (res == 409)
+              displayDialog(context, "That username is already registered",
+                  "Please try to sign up using another username or log in if you already have an account.");
+            else {
+              displayDialog(context, "Error", "An unknown error occurred.");
+            }
+          }
         },
       ),
     );
   }
+
+  void displayDialog(BuildContext context, String title, String text) =>
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(title: Text(title), content: Text(text)),
+      );
 }

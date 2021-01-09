@@ -7,12 +7,10 @@ import 'package:roadmap/models/sub_category_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:roadmap/webservices/auth/auth.dart';
 
-
-
 class WebService {
   final baseURL = 'https://roadmap-django-api.herokuapp.com/roadmap/';
 
-Future<List<CategoryListModel>> fromAllCategory() async {
+  Future<List<CategoryListModel>> fromAllCategory() async {
     String token = await Auth().getToken();
     final response = await http.get(
       baseURL + 'categories',
@@ -22,6 +20,7 @@ Future<List<CategoryListModel>> fromAllCategory() async {
         'Authorization': 'Token $token'
       },
     );
+    print("RESPONSE" + response.body);
 
     if (response.statusCode == 200) {
       List<CategoryListModel> allCategoryList = [];
@@ -30,19 +29,17 @@ Future<List<CategoryListModel>> fromAllCategory() async {
       for (var item in body) {
         allCategoryList.add(CategoryListModel.fromJson(item));
       }
-
       return allCategoryList;
     } else {
       print(response.statusCode);
     }
   }
 
-
-
-  Future<List<SubCateogryModel>> fromCategory() async {
+  Future<List<SubCateogryModel>> fromSubCategory(String slug) async {
+    print("AAAAAAAA: " + slug);
     String token = await Auth().getToken();
     final response = await http.get(
-      baseURL + 'categories/coding',
+      baseURL + 'categories/$slug',
       headers: {
         'Content-Type': 'application/json',
         'Accept': '*/*',
@@ -52,23 +49,21 @@ Future<List<CategoryListModel>> fromAllCategory() async {
 
     if (response.statusCode == 200) {
       List<SubCateogryModel> subCategorys = [];
-
       var body = jsonDecode(response.body);
       for (var item in body) {
         subCategorys.add(SubCateogryModel.fromJson(item));
       }
-
       return subCategorys;
     } else {
       print(response.statusCode);
     }
   }
 
-  Future<List<RoadmapModel>> fromRoadmap() async {
+  Future<List<RoadmapModel>> fromRoadmap(String slug1, String slug2) async {
     String token = await Auth().getToken();
 
     final response = await http.get(
-      baseURL + 'categories/coding/python',
+      baseURL + 'categories/$slug1/$slug2',
       headers: {
         'Content-Type': 'application/json',
         'Accept': '*/*',
@@ -83,7 +78,7 @@ Future<List<CategoryListModel>> fromAllCategory() async {
       for (var roadmap in body) {
         roadmaps.add(RoadmapModel.fromJson(roadmap));
       }
-
+      print(body);
       return roadmaps;
     } else {
       print(response.statusCode);

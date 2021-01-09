@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/models/sub_category_model.dart';
+import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 
 class CategorySubList extends StatelessWidget {
-  final SubCateogryModel _subCateogryModel;
-  CategorySubList({SubCateogryModel subCateogryModel})
-      : _subCateogryModel = subCateogryModel;
+  final String subCateogryModel;
+  CategorySubList({this.subCateogryModel});
 
   @override
   Widget build(BuildContext context) {
+    print("Sub Cat:" + subCateogryModel);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -20,9 +21,10 @@ class CategorySubList extends StatelessWidget {
           ),
         ),
         body: FutureBuilder(
-          future: WebService().fromCategory(),
+          future: WebService().fromSubCategory(subCateogryModel),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
+              print(snapshot.error);
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -39,9 +41,13 @@ class CategorySubList extends StatelessWidget {
                   return InkWell(
                     child: _buildCategoryList(snapshot.data[index], context),
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                        '/allRoadmap',
-                        arguments: snapshot.data[index],
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => RoadmapDetail(
+                            roadmapModel: snapshot.data[index].slug,
+                            subCateogryModel: subCateogryModel,
+                          ),
+                        ),
                       );
                     },
                   );

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/models/roadmap_model.dart';
+import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 import 'package:roadmap/widgets/custom_bar.dart';
 
-
-
 class RoadmapDetail extends StatelessWidget {
- final  RoadmapModel _roadmapModel;
- RoadmapDetail({RoadmapModel roadmapModel}) : _roadmapModel  = roadmapModel;
+  final String subCateogryModel;
+  final String roadmapModel;
+  RoadmapDetail({this.roadmapModel, this.subCateogryModel});
 
   @override
   Widget build(BuildContext context) {
+    print("FFFFFFFFF" + roadmapModel + subCateogryModel);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -21,13 +22,15 @@ class RoadmapDetail extends StatelessWidget {
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.60,
                 child: FutureBuilder(
-                  future: WebService().fromRoadmap(),
+                  future:
+                      WebService().fromRoadmap(subCateogryModel, roadmapModel),
                   builder: (context, snapshot) {
                     List<RoadmapModel> roadmap = snapshot.data;
                     if (snapshot.connectionState != ConnectionState.done) {
                       return Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasData) {
+                      print(roadmap[0].image);
                       return InkWell(
                         child: ListView.builder(
                           itemCount: roadmap.length,
@@ -114,8 +117,10 @@ class RoadmapDetail extends StatelessWidget {
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width * 1,
-                                  
-                                  child: Text(roadmap[index].description, textAlign: TextAlign.center,),
+                                  child: Text(
+                                    roadmap[index].description,
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ],
                             );

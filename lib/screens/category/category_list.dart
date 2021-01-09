@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/models/category_list.dart';
+import 'package:roadmap/screens/category/category_sub_list.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 
 class CategoryList extends StatefulWidget {
-  final CategoryListModel _categoryListModel;
-  CategoryList({CategoryListModel categoryListModel})
-      : _categoryListModel = categoryListModel;
-
+  CategoryListModel categoryListModel;
+  CategoryList({this.categoryListModel});
   @override
   _CategoryListState createState() => _CategoryListState();
 }
@@ -30,6 +29,7 @@ class _CategoryListState extends State<CategoryList> {
           future: WebService().fromAllCategory(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
+              print(snapshot.error);
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,16 +40,17 @@ class _CategoryListState extends State<CategoryList> {
               );
             }
             if (snapshot.hasData) {
+              // widget.categoryListModel = snapshot.data as CategoryListModel;
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     child: _buildCategoryList(snapshot.data[index], context),
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                        '/categoryItems',
-                        arguments: snapshot.data[index],
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategorySubList(
+                                subCateogryModel: snapshot.data[index].slug,
+                              ),),);
                     },
                   );
                 },
@@ -69,7 +70,8 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  Widget _buildCategoryList(CategoryListModel categoryListModel, BuildContext context) {
+  Widget _buildCategoryList(
+      CategoryListModel categoryListModel, BuildContext context) {
     return Stack(
       children: [
         Padding(
@@ -114,9 +116,7 @@ class _CategoryListState extends State<CategoryList> {
               color: Color(0xFFFD7E77),
               size: 30,
             ),
-            onPressed: () {
-             
-            },
+            onPressed: () {},
           ),
         ),
       ],

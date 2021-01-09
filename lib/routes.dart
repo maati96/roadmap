@@ -10,7 +10,6 @@ import 'package:roadmap/screens/start.dart';
 import 'main.dart';
 
 generateRoute({BuildContext context, String name, Object arguments}) {
-
   switch (name) {
     case '/':
       return FutureBuilder(
@@ -44,8 +43,8 @@ generateRoute({BuildContext context, String name, Object arguments}) {
       break;
     case '/allRoadmap':
       return RoadmapDetail(
-        // roadmapModel: arguments as RoadmapModel,
-      );
+          // roadmapModel: arguments as RoadmapModel,
+          );
       break;
   }
 }

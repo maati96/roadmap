@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
 import 'package:roadmap/models/category_list.dart';
 import 'package:roadmap/models/roadmap_model.dart';
 import 'package:roadmap/models/sub_category_model.dart';

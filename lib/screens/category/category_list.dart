@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:roadmap/models/category_list.dart';
 import 'package:roadmap/screens/category/category_sub_list.dart';
 import 'package:roadmap/webservices/web_servies.dart';
+import 'package:roadmap/widgets/appbar_search.dart';
 
 class CategoryList extends StatefulWidget {
   CategoryListModel categoryListModel;
@@ -18,13 +19,7 @@ class _CategoryListState extends State<CategoryList> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Text(
-            "الأقسام الرئيسية",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        appBar: AppBarSearch.appBarBase('مسارات التعلم'),
         body: FutureBuilder(
           future: WebService().fromAllCategory(),
           builder: (context, snapshot) {

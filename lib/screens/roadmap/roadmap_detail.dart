@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/models/roadmap_model.dart';
-import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/webservices/web_servies.dart';
-import 'package:roadmap/widgets/custom_bar.dart';
+import 'package:roadmap/widgets/appbar_search.dart';
 
 class RoadmapDetail extends StatelessWidget {
   final String subCateogryModel;
@@ -11,16 +10,18 @@ class RoadmapDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("FFFFFFFFF" + roadmapModel + subCateogryModel);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        appBar: AppBarSearch.appBarBase('مسارات التعلم لهذا القسم'),
         body: ListView(
           children: [
-            CustomAppBar(),
-            Expanded(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.60,
+            SizedBox(
+              height: 5,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.99,
+              child: Expanded(
                 child: FutureBuilder(
                   future:
                       WebService().fromRoadmap(subCateogryModel, roadmapModel),
@@ -38,8 +39,9 @@ class RoadmapDetail extends StatelessWidget {
                             return Column(
                               children: [
                                 Container(
+                                  padding: EdgeInsets.only(left: 8, right: 8),
                                   height:
-                                      MediaQuery.of(context).size.height * 0.30,
+                                      MediaQuery.of(context).size.height * 0.15,
                                   child: Stack(
                                     alignment: AlignmentDirectional.bottomStart,
                                     children: [
@@ -61,6 +63,7 @@ class RoadmapDetail extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
+                                         padding: EdgeInsets.only(right: 10, left: 10),
                                         height: 50,
                                         width:
                                             MediaQuery.of(context).size.width *
@@ -88,7 +91,7 @@ class RoadmapDetail extends StatelessWidget {
                                                   left: 8.0),
                                               child: Row(
                                                 children: [
-                                                  Icon(Icons.code,
+                                                  Icon(Icons.computer,
                                                       color: Colors.white),
                                                   SizedBox(
                                                     width: 8,
@@ -96,7 +99,7 @@ class RoadmapDetail extends StatelessWidget {
                                                   Text(
                                                     roadmap[index]
                                                         .author
-                                                        .toString(),
+                                                        .username,
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 16,
@@ -113,14 +116,7 @@ class RoadmapDetail extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  child: Text(
-                                    roadmap[index].description,
-                                    textAlign: TextAlign.center,
-                                  ),
+                                  height: 8,
                                 ),
                               ],
                             );
@@ -128,7 +124,6 @@ class RoadmapDetail extends StatelessWidget {
                         ),
                       );
                     }
-
                     return Container();
                   },
                 ),

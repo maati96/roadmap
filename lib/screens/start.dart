@@ -36,7 +36,7 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
           Icon(
             Icons.calendar_view_day,
             color:
-              Color(0xFF26242e),
+              Colors.white,
             size: 30,
           ),
           // Icon(
@@ -46,17 +46,17 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
           // ),
           Icon(
             Icons.whatshot,
-            color:  Color(0xFF26242e),
+            color: Colors.white,
             size: 30,
           ),
           Icon(
             Icons.person,
-            color:  Color(0xFF26242e),
+            color:  Colors.white,
             size: 30,
           ),
         ],
-        color: Colors.white70,
-        backgroundColor: Colors.grey[400],
+        color: Color(0xFFFD8176),
+        backgroundColor: Color(0xFFFD8176).withOpacity(0.3),
         animationCurve: Curves.easeInOut,
         onTap: (index) {
           setState(() {

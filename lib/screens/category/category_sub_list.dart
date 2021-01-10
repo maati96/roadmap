@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
 import 'package:roadmap/webservices/web_servies.dart';
+import 'package:roadmap/widgets/appbar_search.dart';
 
 class CategorySubList extends StatelessWidget {
   final String subCateogryModel;
@@ -13,13 +14,7 @@ class CategorySubList extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Text(
-            "الأقسام الفرعية",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        appBar: AppBarSearch.appBarBase("الاقسام الفرعية"),
         body: FutureBuilder(
           future: WebService().fromSubCategory(subCateogryModel),
           builder: (context, snapshot) {
@@ -35,7 +30,12 @@ class CategorySubList extends StatelessWidget {
               );
             }
             if (snapshot.hasData) {
-              return ListView.builder(
+              return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
@@ -87,22 +87,13 @@ class CategorySubList extends StatelessWidget {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.25,
-          width: MediaQuery.of(context).size.width * 1,
+          alignment: Alignment.center,
           child: Padding(
-            padding: const EdgeInsets.only(left: 25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    subCateogryModel.name,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-              ],
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              subCateogryModel.name,
+              style: TextStyle(color: Colors.white, fontSize: 30),
+              textAlign: TextAlign.center,
             ),
           ),
         ),

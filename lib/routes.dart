@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:roadmap/models/roadmap_model.dart';
-import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/screens/auth/login.dart';
 import 'package:roadmap/screens/category/category_list.dart';
-import 'package:roadmap/screens/category/category_sub_list.dart';
-import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
 import 'package:roadmap/screens/start.dart';
 
 import 'main.dart';
@@ -36,16 +32,7 @@ generateRoute({BuildContext context, String name, Object arguments}) {
     case '/allCategory':
       return CategoryList();
       break;
-    case '/categoryItems':
-      return CategorySubList(
-        // subCateogryModel: arguments as SubCateogryModel,
-      );
-      break;
-    case '/allRoadmap':
-      return RoadmapDetail(
-          // roadmapModel: arguments as RoadmapModel,
-          );
-      break;
+ 
   }
 }
 

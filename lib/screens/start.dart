@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:roadmap/screens/category/category_list.dart';
-import 'package:roadmap/screens/home.dart';
 
+import 'home/view.dart';
 import 'profile/profile.dart';
 
 class StartNavigationButtom extends StatefulWidget {

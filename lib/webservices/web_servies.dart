@@ -4,6 +4,7 @@ import 'package:roadmap/models/category_list.dart';
 import 'package:roadmap/models/roadmap_model.dart';
 import 'package:roadmap/models/sub_category_model.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:roadmap/webservices/auth/auth.dart';
 
 class WebService {
@@ -83,4 +84,22 @@ class WebService {
       print(response.statusCode);
     }
   }
+
+  // Future<HomeModel> getLetastCategory() async {
+  //   // String token = await Auth().getToken();
+  //   const String url =
+  //       'https://roadmap-django-api.herokuapp.com/settings/api/home';
+  //   final response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     HomeModel homeModel = HomeModel.fromJson();
+  //     print(response.body);
+
+  //   } else {
+  //     print(response.statusCode);
+  //   }
+  // 
+
+
 }
+
+

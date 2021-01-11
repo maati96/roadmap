@@ -65,3 +65,31 @@ void errorDialog({BuildContext context, String text, Function function}) {
         );
       });
 }
+
+void showNetworkErrorDialog(BuildContext context, Function onTap) {
+  showCupertinoDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoAlertDialog(
+        content: Text(
+           "تأكد من الاتصال بالانترنت",
+          style: TextStyle(
+              fontSize: 15,
+               ),
+        ),
+        actions: <Widget>[
+          CupertinoButton(
+            onPressed: onTap,
+            child: Text(
+              "حاول مرة أخرى",
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                   ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}

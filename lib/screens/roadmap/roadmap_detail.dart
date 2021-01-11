@@ -19,9 +19,9 @@ class RoadmapDetail extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.99,
-              child: Expanded(
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.99,
                 child: FutureBuilder(
                   future:
                       WebService().fromRoadmap(subCateogryModel, roadmapModel),
@@ -31,7 +31,6 @@ class RoadmapDetail extends StatelessWidget {
                       return Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasData) {
-                      print(roadmap[0].image);
                       return InkWell(
                         child: ListView.builder(
                           itemCount: roadmap.length,
@@ -48,7 +47,7 @@ class RoadmapDetail extends StatelessWidget {
                                       Container(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.30,
+                                                0.15,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 1,
@@ -63,28 +62,25 @@ class RoadmapDetail extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                         padding: EdgeInsets.only(right: 10, left: 10),
-                                        height: 50,
+                                        padding: EdgeInsets.only(
+                                            right: 10),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.15,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 1,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.4),
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(20),
-                                              bottomRight: Radius.circular(20)),
-                                        ),
                                         child: Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.center,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.center,
                                           children: [
                                             Text(
                                               roadmap[index].name,
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 15),
+                                                  fontSize: 30),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -102,7 +98,7 @@ class RoadmapDetail extends StatelessWidget {
                                                         .username,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 16,
+                                                        fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),

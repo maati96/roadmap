@@ -12,7 +12,7 @@ class HomeModel {
     HomeModel({
         this.success,
         this.latestRoadmaps,
-        this.latestCategroies,
+      this.latestCategroies,
     });
 
     int success;

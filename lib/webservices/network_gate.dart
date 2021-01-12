@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:quick_log/quick_log.dart';
 
-const String BASE_URL = "https://roadmap-django-api.herokuapp.com/settings/api";
-
+const String BASE_URL = "https://roadmap-django-api.herokuapp.com";
+//https://roadmap-django-api.herokuapp.com/roadmap/categories
 class ServerGate {
   Dio dio = Dio();
   Logger log = Logger('--------- Server Gate Logger -------- ');

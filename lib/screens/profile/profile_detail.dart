@@ -26,12 +26,14 @@ class MapScreenState extends State<ProfilePage>
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(color: Colors.black26, blurRadius: 10)
-                    ],
-                    gradient: LinearGradient(
-                      colors: [Color(0xFFDD4B39), Color(0xFFFD8176)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    )),
+                    ],color: Colors.yellow
+
+//                    gradient: LinearGradient(
+//                      List: [Color(0xFFDD4B39), Color(0xFFFD8176)],
+//                      begin: Alignment.centerLeft,
+//                      end: Alignment.centerRight,
+//                    )
+                ),
               ),
               preferredSize: Size(double.infinity, 56),
             ),

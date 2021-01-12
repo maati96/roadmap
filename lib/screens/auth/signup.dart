@@ -178,11 +178,12 @@ class _SignupState extends State<Signup> {
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        gradient: LinearGradient(
-          colors: color,
-          begin: FractionalOffset.centerLeft,
-          end: FractionalOffset.centerRight,
-        ),
+color: Colors.yellow
+//        gradient: LinearGradient(
+//          List: color,
+//          begin: FractionalOffset.centerLeft,
+//          end: FractionalOffset.centerRight,
+//        ),
       ),
       child: FlatButton(
         child: Text(

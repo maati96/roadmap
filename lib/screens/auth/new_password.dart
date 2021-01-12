@@ -104,12 +104,13 @@ class _NewPasswordState extends State<NewPassword> {
       width: MediaQuery.of(context).size.width - 20,
       height: 55,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        gradient: LinearGradient(
-          colors: color,
-          begin: FractionalOffset.centerLeft,
-          end: FractionalOffset.centerRight,
-        ),
+        borderRadius: BorderRadius.circular(5),color: Colors.yellow
+
+//        gradient: LinearGradient(
+//          List: color,
+//          begin: FractionalOffset.centerLeft,
+//          end: FractionalOffset.centerRight,
+//        ),
       ),
       child: FlatButton(
         child: Text(

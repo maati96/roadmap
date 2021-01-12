@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:roadmap/screens/profile/about.dart';
 import 'package:roadmap/screens/profile/contact.dart';
 import 'package:roadmap/screens/profile/profile_detail.dart';
@@ -13,7 +13,7 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  var storage = FlutterSecureStorage();
+//  var storage = FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _UserProfileState extends State<UserProfile> {
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/');
                   setState(() {
-                    storage.delete(key: 'key');
+//                    storage.delete(key: 'key');
                   });
                 },
                 child: ListTile(

@@ -1,12 +1,17 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:roadmap/routes.dart';
+import 'package:roadmap/screens/auth/SignIn/view.dart';
+import 'package:roadmap/utilities/Shared.dart';
 import 'package:roadmap/webservices/auth/auth.dart';
 
+import 'screens/splash_screen.dart';
+import 'screens/start.dart';
 
-final storage = FlutterSecureStorage();
+//final storage = FlutterSecureStorage();
 
 void main() async {
   runApp(
@@ -25,6 +30,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,11 +39,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-          builder: (BuildContext context) => generateRoute(
-            context: context,
-            name: settings.name,
-            arguments: settings.arguments,
-          ),
+          builder: (BuildContext context) => SplashScreen(),
         );
       },
     );

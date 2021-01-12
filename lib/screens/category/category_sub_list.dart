@@ -10,7 +10,6 @@ class CategorySubList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Sub Cat:" + subCateogryModel);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

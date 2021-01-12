@@ -21,10 +21,8 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> tabs = [
       CategoryList(),
-      //Favorites(),
       Home(),
       UserProfile(),
     ];
@@ -35,15 +33,9 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
         items: [
           Icon(
             Icons.calendar_view_day,
-            color:
-              Colors.white,
+            color: Colors.white,
             size: 30,
           ),
-          // Icon(
-          //   Icons.favorite,
-          //   color: Color(0xFF8890A6),
-          //   size: 30,
-          // ),
           Icon(
             Icons.whatshot,
             color: Colors.white,
@@ -51,7 +43,7 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
           ),
           Icon(
             Icons.person,
-            color:  Colors.white,
+            color: Colors.white,
             size: 30,
           ),
         ],

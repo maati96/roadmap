@@ -62,9 +62,9 @@ class _UserProfileState extends State<UserProfile> {
             Card(
               child: ListTile(
                 leading: Icon(Icons.feedback_rounded, size: 56),
-                title: Text('اقتراحاتك والمشاكل التي تواجهك'),
+                title: Text('تواصل معنا '),
                 subtitle:
-                    Text('يمكنك ارسال مقتراحاتك او اي افكار جديدة تفيد التطبيق والمجتمع المستفاد منه'),
+                    Text('مقترحاتك وافكار جديدة'),
                 trailing: IconButton(
                   icon: Icon(Icons.arrow_forward_ios),
                   onPressed: () {

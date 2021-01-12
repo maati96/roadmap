@@ -3,6 +3,8 @@ import 'package:roadmap/models/roadmap_model.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 import 'package:roadmap/widgets/appbar_search.dart';
 
+import 'roadmap_detail/view.dart';
+
 class RoadmapDetail extends StatelessWidget {
   final String subCateogryModel;
   final String roadmapModel;
@@ -32,6 +34,12 @@ class RoadmapDetail extends StatelessWidget {
                     }
                     if (snapshot.hasData) {
                       return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => RoadmapDetails()),
+                          );
+                        },
                         child: ListView.builder(
                           itemCount: roadmap.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -62,8 +70,7 @@ class RoadmapDetail extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                        padding: EdgeInsets.only(
-                                            right: 10),
+                                        padding: EdgeInsets.only(right: 10),
                                         height:
                                             MediaQuery.of(context).size.height *
                                                 0.15,

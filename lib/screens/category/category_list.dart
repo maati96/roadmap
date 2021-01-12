@@ -13,7 +13,6 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   bool _isLike = false;
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -35,7 +34,6 @@ class _CategoryListState extends State<CategoryList> {
               );
             }
             if (snapshot.hasData) {
-              // widget.categoryListModel = snapshot.data as CategoryListModel;
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {

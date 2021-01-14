@@ -1,17 +1,14 @@
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
 //import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:roadmap/routes.dart';
-import 'package:roadmap/screens/auth/SignIn/view.dart';
-import 'package:roadmap/utilities/Shared.dart';
+
 import 'package:roadmap/webservices/auth/auth.dart';
 
 import 'screens/splash_screen.dart';
-import 'screens/start.dart';
 
-//final storage = FlutterSecureStorage();
+
 
 void main() async {
   runApp(

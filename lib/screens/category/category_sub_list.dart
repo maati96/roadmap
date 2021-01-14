@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+
 import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
 import 'package:roadmap/webservices/web_servies.dart';
 import 'package:roadmap/widgets/appbar_search.dart';
 
 class CategorySubList extends StatelessWidget {
-  final String subCateogryModel;
-  CategorySubList({this.subCateogryModel});
+  final int id;
+  int subCateogryModel;
+  CategorySubList({
+    Key key,
+    this.id,
+    this.subCateogryModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class CategorySubList extends StatelessWidget {
       child: Scaffold(
         appBar: AppBarSearch.appBarBase("الاقسام الفرعية"),
         body: FutureBuilder(
-          future: WebService().fromSubCategory(subCateogryModel),
+          future: WebService().fromSubCategory(id),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error);
@@ -44,7 +50,7 @@ class CategorySubList extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => RoadmapDetail(
                             roadmapModel: snapshot.data[index].slug,
-                            subCateogryModel: subCateogryModel,
+                            subCateogryModel: snapshot.data[index],
                           ),
                         ),
                       );

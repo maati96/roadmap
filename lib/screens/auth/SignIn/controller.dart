@@ -1,5 +1,4 @@
 import 'package:roadmap/utilities/Shared.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../webservices/network_gate.dart';
 import 'model.dart';
 
@@ -21,7 +20,7 @@ class SignInController {
       },
       headers: {
         'Accept': '*/*',
-//        'Accept-Encoding': 'gzip, deflate, br',
+
 //        'Content-Type': 'application/json',
       },
     );

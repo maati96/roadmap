@@ -6,7 +6,7 @@ class HomeController {
   Future<CustomResponse> getData() async {
     // Map<String, dynamic> headers = await headersMapWithoutToken();
     CustomResponse response = await _serverGate.getData(
-      url: 'home',
+      url: 'settings/api/home',
       headers: {
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate, br',

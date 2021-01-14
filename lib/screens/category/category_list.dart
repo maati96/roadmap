@@ -7,18 +7,13 @@ import 'category_sub_list.dart';
 import 'model.dart';
 
 class CategoryList extends StatefulWidget {
-  final int id;
-  final int categoryListModel;
-
-  const CategoryList({Key key, this.id, this.categoryListModel})
-      : super(key: key);
-
   @override
   _CategoryListState createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
   bool _isLike = false;
+  CategoryListModel categoryListModel;
 
   @override
   void initState() {
@@ -55,7 +50,7 @@ class _CategoryListState extends State<CategoryList> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => CategorySubList(
-                            id:  index,
+                            slug: categoryListModel.slug,
                           ),
                         ),
                       );

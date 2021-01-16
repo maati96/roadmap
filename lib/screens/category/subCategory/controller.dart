@@ -1,10 +1,9 @@
-import 'package:roadmap/models/sub_category_model.dart';
 import 'package:roadmap/webservices/network_gate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ServerGate _serverGate = ServerGate();
 
-class CategoriesController {
+class SubCategoriesController {
   Future<CustomResponse> getData(String slug) async {
     SharedPreferences _shared = await SharedPreferences.getInstance();
     String token = _shared.getString("token");

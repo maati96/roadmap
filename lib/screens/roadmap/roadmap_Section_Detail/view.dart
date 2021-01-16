@@ -12,14 +12,12 @@ class RoadmapDetails extends StatelessWidget {
             child: Container(
               height: 100,
               decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],color: Colors.yellow
-
-//                  gradient: LinearGradient(
-//                    List: [Color(0xFFDD4B39), Color(0xFFFD8176)],
-////                    colors: [Color(0xFFDD4B39), Color(0xFFFD8176)],
-//                    begin: Alignment.centerLeft,
-//                    end: Alignment.centerRight,
-//                  )
+                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                gradient: LinearGradient(
+                  colors: [Color(0xFFDD4B39), Color(0xFFFD8176)],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
               ),
             ),
             preferredSize: Size(double.infinity, 56),

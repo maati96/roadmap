@@ -66,13 +66,12 @@ class _SignupState extends State<Signup> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Current User?"),
-                    RaisedButton(
+                    TextButton(
                       child: Text(
                         "Login",
                         style: TextStyle(color: Color(0xFFFD8176)),
                       ),
-                      color: Colors.transparent,
-                      elevation: 0,
+                      
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -185,7 +184,7 @@ color: Colors.yellow
 //          end: FractionalOffset.centerRight,
 //        ),
       ),
-      child: FlatButton(
+      child: TextButton(
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontSize: 18),

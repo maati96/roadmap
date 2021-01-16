@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:roadmap/screens/category/category_list.dart';
 
+import 'category/allCategoriyes/category_list.dart';
 import 'home/view.dart';
 import 'profile/profile.dart';
 
@@ -22,7 +22,7 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
   @override
   Widget build(BuildContext context) {
     List<Widget> tabs = [
-      CategoryList(),
+     CategoryList(),
       Home(),
       UserProfile(),
     ];

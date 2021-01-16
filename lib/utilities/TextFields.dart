@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 Widget textFormField(
     {BuildContext context,
       Function validator,

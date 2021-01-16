@@ -105,7 +105,7 @@ class AppBarSearch {
       _textController.clear();
     }
     // Display the change in the app's title
-    state.setState(() {});
+    // state.setState(() {});
   }
 
   void _submitFunc(String value) {

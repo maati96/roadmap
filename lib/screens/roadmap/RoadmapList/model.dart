@@ -4,12 +4,32 @@
 
 import 'dart:convert';
 
-List<RoadmapModel> roadmapModelFromJson(String str) => List<RoadmapModel>.from(json.decode(str).map((x) => RoadmapModel.fromJson(x)));
+RoadmapModel roadmapModelFromJson(String str) => RoadmapModel.fromJson(json.decode(str));
 
-String roadmapModelToJson(List<RoadmapModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String roadmapModelToJson(RoadmapModel data) => json.encode(data.toJson());
 
 class RoadmapModel {
     RoadmapModel({
+        this.success,
+        this.data,
+    });
+
+    bool success;
+    List<Datum> data;
+
+    factory RoadmapModel.fromJson(Map<String, dynamic> json) => RoadmapModel(
+        success: json["Success"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "Success": success,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
+}
+
+class Datum {
+    Datum({
         this.id,
         this.name,
         this.author,
@@ -27,7 +47,7 @@ class RoadmapModel {
     int visitorsCount;
     String slug;
 
-    factory RoadmapModel.fromJson(Map<String, dynamic> json) => RoadmapModel(
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
         author: Author.fromJson(json["author"]),

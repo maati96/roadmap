@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:roadmap/models/home_model.dart';
 import 'package:roadmap/screens/home/controller.dart';
+import 'package:roadmap/screens/home/home_model.dart';
 import 'package:roadmap/webservices/network_gate.dart';
 import 'package:roadmap/widgets/ErrorDialog.dart';
 
@@ -47,14 +47,8 @@ class _HomeState extends State<Home> {
             child: Container(
               height: 100,
               decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],color: Colors.yellow
-
-//                  gradient: LinearGradient(
-//                    List: [Color(0xFFDD4B39), Color(0xFFFD8176)],
-//                    begin: Alignment.centerLeft,
-//                    end: Alignment.centerRight,
-//                  )
-              ),
+                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                  color: Colors.yellow),
             ),
             preferredSize: Size(double.infinity, 56),
           ),
@@ -130,8 +124,8 @@ class _HomeState extends State<Home> {
                             itemBuilder: (context, index) {
                               return _featureCard(
                                 () {},
-                                _model.latestCategroies[index].name,
-                                _model.latestCategroies[index].image,
+                                _model.latestCategroies[index].feeds.name,
+                                _model.latestCategroies[index].feeds.image,
                               );
                             },
                             scrollDirection: Axis.horizontal,
@@ -158,13 +152,13 @@ class _HomeState extends State<Home> {
                             animating: true,
                           )
                         : ListView.builder(
-                            itemCount: _model.latestRoadmaps.length,
+                            itemCount: _model.latestroadmaps.length,
                             itemBuilder: (context, index) {
                               return _latestRoadmaps(
                                 () {},
-                                _model.latestRoadmaps[index].name,
-                                _model.latestRoadmaps[index].author.username,
-                                _model.latestRoadmaps[index].image,
+                                _model.latestroadmaps[index].name,
+                                _model.latestroadmaps[index].author.username,
+                                _model.latestroadmaps[index].image,
                               );
                             },
                             scrollDirection: Axis.horizontal,
@@ -180,49 +174,27 @@ class _HomeState extends State<Home> {
   }
 
   Widget _featureCard(Function onTap, String name, String image) {
-    return InkWell(
-      onTap: onTap,
-      child: Stack(
-        alignment: AlignmentDirectional.bottomStart,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.35,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.white,
-                image: DecorationImage(
-                    image: NetworkImage(image), fit: BoxFit.cover),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.35,
+        width: MediaQuery.of(context).size.width * 0.35,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                image,
               ),
-            ),
+              fit: BoxFit.cover),
+        ),
+        child: Text(
+          name,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 25,
           ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.35,
-              width: MediaQuery.of(context).size.width * 0.35,
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          textAlign: TextAlign.center,
+        ),
+   
       ),
     );
   }
@@ -231,58 +203,45 @@ class _HomeState extends State<Home> {
       Function onTap, String name, String author, String image) {
     return InkWell(
       onTap: onTap,
-      child: Stack(
-        alignment: AlignmentDirectional.bottomStart,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.35,
-            width: MediaQuery.of(context).size.width * 0.8,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: Colors.white,
-              image: DecorationImage(
-                  image: NetworkImage(image), fit: BoxFit.cover),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.35,
+        width: MediaQuery.of(context).size.width * 0.8,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.white,
+          image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+        
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              name,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.35,
-            width: MediaQuery.of(context).size.width * 0.8,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Row(
               children: [
+                Icon(Icons.computer_outlined),
+                SizedBox(
+                  width: 8.0,
+                ),
                 Text(
-                  name,
+                  author,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                Row(
-                  children: [
-                    Icon(Icons.computer_outlined),
-                    SizedBox(
-                      width: 8.0,
-                    ),
-                    Text(
-                      author,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

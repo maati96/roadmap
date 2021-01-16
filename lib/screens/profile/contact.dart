@@ -78,7 +78,7 @@ class _ContactState extends State<Contact> {
 //          end: FractionalOffset.centerRight,
 //        ),
       ),
-      child: FlatButton(
+      child: TextButton(
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontSize: 18),

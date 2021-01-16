@@ -11,29 +11,45 @@ String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 class HomeModel {
     HomeModel({
         this.success,
-        this.latestRoadmaps,
-      this.latestCategroies,
+        this.latestroadmaps,
+        this.latestCategroies,
     });
 
     int success;
-    List<LatestRoadmap> latestRoadmaps;
+    List<Latestroadmap> latestroadmaps;
     List<LatestCategroy> latestCategroies;
 
     factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
-        success: json["Success"],
-        latestRoadmaps: List<LatestRoadmap>.from(json["Latest Roadmaps"].map((x) => LatestRoadmap.fromJson(x))),
+        success: json["success"],
+        latestroadmaps: List<Latestroadmap>.from(json["latestroadmaps"].map((x) => Latestroadmap.fromJson(x))),
         latestCategroies: List<LatestCategroy>.from(json["Latest Categroies"].map((x) => LatestCategroy.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "Success": success,
-        "Latest Roadmaps": List<dynamic>.from(latestRoadmaps.map((x) => x.toJson())),
+        "success": success,
+        "latestroadmaps": List<dynamic>.from(latestroadmaps.map((x) => x.toJson())),
         "Latest Categroies": List<dynamic>.from(latestCategroies.map((x) => x.toJson())),
     };
 }
 
 class LatestCategroy {
     LatestCategroy({
+        this.feeds,
+    });
+
+    Feeds feeds;
+
+    factory LatestCategroy.fromJson(Map<String, dynamic> json) => LatestCategroy(
+        feeds: Feeds.fromJson(json["feeds"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "feeds": feeds.toJson(),
+    };
+}
+
+class Feeds {
+    Feeds({
         this.id,
         this.name,
         this.image,
@@ -47,7 +63,7 @@ class LatestCategroy {
     String slug;
     dynamic parent;
 
-    factory LatestCategroy.fromJson(Map<String, dynamic> json) => LatestCategroy(
+    factory Feeds.fromJson(Map<String, dynamic> json) => Feeds(
         id: json["id"],
         name: json["name"],
         image: json["image"],
@@ -64,8 +80,8 @@ class LatestCategroy {
     };
 }
 
-class LatestRoadmap {
-    LatestRoadmap({
+class Latestroadmap {
+    Latestroadmap({
         this.id,
         this.name,
         this.author,
@@ -83,7 +99,7 @@ class LatestRoadmap {
     int visitorsCount;
     String slug;
 
-    factory LatestRoadmap.fromJson(Map<String, dynamic> json) => LatestRoadmap(
+    factory Latestroadmap.fromJson(Map<String, dynamic> json) => Latestroadmap(
         id: json["id"],
         name: json["name"],
         author: Author.fromJson(json["author"]),

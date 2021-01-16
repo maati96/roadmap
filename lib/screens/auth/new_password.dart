@@ -112,7 +112,7 @@ class _NewPasswordState extends State<NewPassword> {
 //          end: FractionalOffset.centerRight,
 //        ),
       ),
-      child: FlatButton(
+      child: TextButton(
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontSize: 18),

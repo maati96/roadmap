@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:roadmap/models/sub_category_model.dart';
+import 'package:roadmap/screens/category/subCategory/model.dart';
 import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
 import 'package:roadmap/webservices/network_gate.dart';
 import 'package:roadmap/widgets/ErrorDialog.dart';
@@ -17,17 +18,17 @@ class CategorySubList extends StatefulWidget {
 }
 
 class _CategorySubListState extends State<CategorySubList> {
-  CategoriesController _controller = CategoriesController();
-  List<SubCateogryModel> _model;
+  SubCategoriesController _controller = SubCategoriesController();
+  SubCategoryModel _model = SubCategoryModel();
 
   void _getData() async {
     CustomResponse response = await _controller.getData(widget.slug);
-
     try {
       if (response.success) {
         setState(
           () {
-            _model = subCateogryModelFromJson(response.response.data);
+            _model = SubCategoryModel.fromJson(response.response.data);
+            _loading = false;
           },
         );
       } else if (response.errType == 0) {
@@ -41,6 +42,8 @@ class _CategorySubListState extends State<CategorySubList> {
     }
   }
 
+  bool _loading = true;
+
   @override
   void initState() {
     _getData();
@@ -53,30 +56,31 @@ class _CategorySubListState extends State<CategorySubList> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarSearch.appBarBase("الاقسام الفرعية"),
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemCount: _model.length,
-          itemBuilder: (BuildContext context, int index) {
-        
-            return InkWell(
-              child: _buildCategoryList(_model[index].name, _model[index].image),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => RoadmapDetail(
-                        // roadmapModel: ,
-                        // subCateogryModel: ,
-                        ),
-                  ),
-                );
-              },
-            );
-          },
-        ),
+        body: _loading
+            ? Center(
+                child: CupertinoActivityIndicator(
+                animating: true,
+                radius: 30,
+              ))
+            : GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: _model.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    child: _buildCategoryList(_model.data[index].feeds.name,
+                        _model.data[index].feeds.image),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => AllRoadmaps()),
+                      );
+                    },
+                  );
+                },
+              ),
       ),
     );
   }
@@ -92,8 +96,8 @@ class _CategorySubListState extends State<CategorySubList> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
               color: Colors.grey,
-              image:
-                  DecorationImage(image: NetworkImage(img ?? null), fit: BoxFit.cover),
+              image: DecorationImage(
+                  image: NetworkImage(img ?? null), fit: BoxFit.cover),
             ),
           ),
         ),

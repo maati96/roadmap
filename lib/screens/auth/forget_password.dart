@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:roadmap/screens/auth/new_password.dart';
 
 
 class ForgetPassword extends StatefulWidget {
@@ -90,33 +89,5 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     );
   }
 
-  Widget _flatButton(String text, List<Color> color) {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      width: MediaQuery.of(context).size.width - 20,
-      height: 55,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),color: Colors.yellow
-
-//        gradient: LinearGradient(
-//          List: color,
-//          begin: FractionalOffset.centerLeft,
-//          end: FractionalOffset.centerRight,
-//        ),
-      ),
-      child: FlatButton(
-        child: Text(
-          text,
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NewPassword()),
-          );
-        
-        },
-      ),
-    );
-  }
+ 
 }

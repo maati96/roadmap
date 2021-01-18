@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:roadmap/screens/category/allCategoriyes/controller.dart';
 import 'package:roadmap/screens/category/subCategory/category_sub_list.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 import 'package:roadmap/webservices/network_gate.dart';
 import 'package:roadmap/widgets/ErrorDialog.dart';
-import 'package:roadmap/widgets/appbar_search.dart';
 
 import 'model.dart';
 
@@ -14,7 +14,6 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
-  bool _isLike = false;
   CategoriesListController _controller = CategoriesListController();
   CategoryListModel _model = CategoryListModel();
   void _getData() async {
@@ -45,7 +44,18 @@ class _CategoryListState extends State<CategoryList> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarSearch.appBarBase('مسارات التعلم'),
+        backgroundColor: AppTheme.backGroundColor,
+        appBar: AppBar(
+          backgroundColor: AppTheme.appBarColor,
+          title: Text(
+            "الأقسام الرئيسية",
+            style: TextStyle(
+              color: AppTheme.cardColor,
+              fontFamily: AppTheme.boldFont,
+              fontSize: 20,
+            ),
+          ),
+        ),
         body: _loading
             ? Center(
                 child: CupertinoActivityIndicator(
@@ -100,22 +110,15 @@ class _CategoryListState extends State<CategoryList> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: Text(
                       name,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: AppTheme.fontName,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: Icon(
-                _isLike ? Icons.favorite : Icons.favorite_border,
-                color: Color(0xFFFD7E77),
-                size: 30,
-              ),
-              onPressed: () {},
             ),
           ),
         ],

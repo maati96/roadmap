@@ -17,6 +17,4 @@ class SubCategoriesController {
     );
     return response;
   }
-
-  
 }

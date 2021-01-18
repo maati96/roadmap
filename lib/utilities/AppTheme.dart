@@ -7,12 +7,15 @@ class AppTheme {
   static Color primaryColor = Color(
     getColorHexFromStr("#21559A"),
   );
+
   static Color secondaryColor = Color(
     getColorHexFromStr("#B5B4B4"),
   );
+
   static Color accentColor = Color(
     getColorHexFromStr("#F47630"),
   );
+
   static Color thirdColor = Color(
     getColorHexFromStr("#F6F7FA"),
   );
@@ -23,24 +26,23 @@ class AppTheme {
     getColorHexFromStr("#D9D9D9"),
   );
   static Color backGroundColor = Color(
-    getColorHexFromStr("#FEFEFE"),
+    getColorHexFromStr("#13131D"),
   );
   static Color cardColor = Color(
     getColorHexFromStr("#FFFFFF"),
   );
-  
-  static Color mainButtonColor = Color.fromARGB(0, 113, 202, 196);
+
+  static Color mainButtonColor = Color(getColorHexFromStr("#3F5CC8"));
   static Color acceptButtonColor = Color(getColorHexFromStr("#FFD32A"));
   static Color btnColor = Color(getColorHexFromStr("#01AAE5"));
   static Color subTitleColor = Color(getColorHexFromStr("#B5BED1"));
   static Color priceColor = Color(getColorHexFromStr("#F58A4F"));
-  static Color counterColor = Color(getColorHexFromStr("#4DD894"));
+  static Color bottomAppBar = Color(getColorHexFromStr("#1B213B"));
   static Color rejectButtonColor = Color(getColorHexFromStr("#E11616"));
-  static Color appBarColor = Color(getColorHexFromStr("#F6F7FA"));
+  static Color appBarColor = Color(getColorHexFromStr("#1B213B"));
 
-  static const String fontName = 'JF-Flat';
+  static const String fontName = 'Cairo';
   static const String boldFont = 'Cairo';
-
 
   static const double sizedBoxHeight = 20;
 

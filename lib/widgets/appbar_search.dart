@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 
 class AppBarSearch {
   AppBarSearch({
@@ -122,15 +123,8 @@ class AppBarSearch {
         child: Container(
           height: 100,
           decoration: BoxDecoration(
-              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],color: Colors.yellow
-
-//              gradient: LinearGradient(
-//                List: [Color(0xFFDD4B39), Color(0xFFFD8176)],
-////                colors: [Color(0xFFDD4B39), Color(0xFFFD8176)],
-//                begin: Alignment.centerLeft,
-//                end: Alignment.centerRight,
-//              )
-          ),
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+              color: AppTheme.appBarColor),
         ),
         preferredSize: Size(double.infinity, 56),
       ),

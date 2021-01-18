@@ -22,11 +22,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Cairo'),
       title: 'Roadmap',
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (RouteSettings settings) {

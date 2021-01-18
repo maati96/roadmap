@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 ServerGate _serverGate = ServerGate();
 
-class RoadmapSectionDetilController {
+class RoadmapListController {
   Future<CustomResponse> getData(String slug) async {
     SharedPreferences _shared = await SharedPreferences.getInstance();
     String token = _shared.getString("token");

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 
 import 'category/allCategoriyes/category_list.dart';
 import 'home/view.dart';
-import 'profile/profile.dart';
+import 'profile/menu_profile.dart';
 
 class StartNavigationButtom extends StatefulWidget {
   final String data;
@@ -47,8 +48,8 @@ class _StartNavigationButtomState extends State<StartNavigationButtom> {
             size: 30,
           ),
         ],
-        color: Color(0xFFFD8176),
-        backgroundColor: Color(0xFFFD8176).withOpacity(0.3),
+        color: AppTheme.bottomAppBar,
+        backgroundColor: Color(0xFF13131D),
         animationCurve: Curves.easeInOut,
         onTap: (index) {
           setState(() {

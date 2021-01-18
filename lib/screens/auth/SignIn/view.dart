@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 import 'package:roadmap/utilities/TextFields.dart';
 import 'package:roadmap/widgets/Buttons.dart';
+import 'package:roadmap/widgets/auth_logo.dart';
 
 import '../../start.dart';
 import 'controller.dart';
@@ -66,63 +68,70 @@ class _SignInViewState extends State<SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("login"),
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 40,
-              ),
-              textFormField(
-                context: context,
-                onChanged: (val) {
-                  name = val;
-                },
-                labelText: "name",
-                validator: (String val) {
-                  if (val.isEmpty) {
-                    return "name is required";
-                  } else
-                    return null;
-                },
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              textFormField(
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppTheme.backGroundColor,
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: authLogo(
+                      context: context,
+                      welcomeMessage: "مرحبا بعدودتك مرة اخرى",
+                      title: "من فضلك قم بتسجيل الدخول لحسابك"),
+                ),
+                textFormField(
                   context: context,
                   onChanged: (val) {
-                    password = val;
+                    name = val;
                   },
-                  labelText: "password",
+                  labelText: "اسم المستخدم",
                   validator: (String val) {
                     if (val.isEmpty) {
-                      return "password is required";
+                      return "اسم المستخدم مطلوب";
                     } else
                       return null;
                   },
-                  textInputType: TextInputType.visiblePassword,
-                  obscureText: true),
-              Padding(
-                padding: const EdgeInsets.only(top: 40, bottom: 20),
-                child: _loading
-                    ? CupertinoActivityIndicator(
-                        animating: true,
-                        radius: 20,
-                      )
-                    : btn(
-                        context: context,
-                        onTap: () {
-                          _submit(context);
-                        },
-                        txt: "send"),
-              )
-            ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                textFormField(
+                    context: context,
+                    onChanged: (val) {
+                      password = val;
+                    },
+                    labelText: "كلمة المرور",
+                    validator: (String val) {
+                      if (val.isEmpty) {
+                        return "كلمة المرور مطلوبة";
+                      } else
+                        return null;
+                    },
+                    textInputType: TextInputType.visiblePassword,
+                    obscureText: true),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, bottom: 20),
+                  child: _loading
+                      ? CupertinoActivityIndicator(
+                          animating: true,
+                          radius: 20,
+                        )
+                      : btn(
+                          context: context,
+                          onTap: () {
+                            _submit(context);
+                          },
+                          txt: "دخول"),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:roadmap/screens/category/subCategory/model.dart';
-import 'package:roadmap/screens/roadmap/roadmap_detail.dart';
+import 'package:roadmap/screens/roadmap/RoadmapList/roadmap_detail.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 import 'package:roadmap/webservices/network_gate.dart';
 import 'package:roadmap/widgets/ErrorDialog.dart';
-import 'package:roadmap/widgets/appbar_search.dart';
-
 import 'controller.dart';
 
 class CategorySubList extends StatefulWidget {
@@ -55,7 +53,18 @@ class _CategorySubListState extends State<CategorySubList> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarSearch.appBarBase("الاقسام الفرعية"),
+        backgroundColor: AppTheme.backGroundColor,
+        appBar: AppBar(
+          backgroundColor: AppTheme.appBarColor,
+          title: Text(
+            "الأقسام الفرعية",
+            style: TextStyle(
+              color: AppTheme.cardColor,
+              fontFamily: AppTheme.boldFont,
+              fontSize: 20,
+            ),
+          ),
+        ),
         body: _loading
             ? Center(
                 child: CupertinoActivityIndicator(
@@ -75,7 +84,11 @@ class _CategorySubListState extends State<CategorySubList> {
                         _model.data[index].feeds.image),
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => AllRoadmaps()),
+                        MaterialPageRoute(
+                            builder: (context) => RoadmapListView(
+                                  category: widget.slug,
+                                  subCategory: _model.data[index].feeds.slug,
+                                )),
                       );
                     },
                   );
@@ -107,7 +120,11 @@ class _CategorySubListState extends State<CategorySubList> {
             padding: const EdgeInsets.all(20.0),
             child: Text(
               name,
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontFamily: AppTheme.fontName,
+              ),
               textAlign: TextAlign.center,
             ),
           ),

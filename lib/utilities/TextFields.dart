@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 
 Widget textFormField(
     {BuildContext context,
@@ -20,7 +21,7 @@ Widget textFormField(
       obscureText: obscureText??false,
       style: TextStyle(
 
-          color: Colors.black,
+          color: AppTheme.cardColor,
           fontWeight: FontWeight.bold,
           fontSize: 15),
       decoration: InputDecoration(
@@ -43,7 +44,7 @@ Widget textFormField(
         labelText: labelText,
         alignLabelWithHint: true,
         labelStyle: TextStyle(
-          color: Colors.green,
+          color: Colors.white,
           fontWeight: FontWeight.w600,
           backgroundColor: Colors.transparent,
           fontSize: 12,

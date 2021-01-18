@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:roadmap/utilities/AppTheme.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class MapScreenState extends State<ProfilePage>
     return Directionality(
       textDirection: TextDirection.rtl,
       child: new Scaffold(
+         backgroundColor: AppTheme.backGroundColor,
           appBar: AppBar(
             title: Text("تفاصيل المسار "),
             flexibleSpace: PreferredSize(

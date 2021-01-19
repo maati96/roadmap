@@ -8,12 +8,12 @@ Widget authLogo({BuildContext context, String welcomeMessage, String title}) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 20),
+          padding: const EdgeInsets.only(top: 10, bottom: 8),
           child: Center(
               child: Image.asset(
             "assets/images/logo.png",
             width: MediaQuery.of(context).size.width * .5,
-            height: 200,
+            height: 180,
           )),
         ),
         Text(
@@ -36,7 +36,7 @@ Widget authLogo({BuildContext context, String welcomeMessage, String title}) {
               fontWeight: FontWeight.w600),
         ),
         SizedBox(
-          height: 30,
+          height: 10,
         ),
       ],
     ),

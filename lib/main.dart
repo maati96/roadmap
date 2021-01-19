@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:roadmap/webservices/auth/auth.dart';
-
 import 'screens/splash_screen.dart';
 
 void main() async {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => Auth()),
-      ],
-      child: MyApp(),
-    ),
+    MyApp(),
   );
 }
 

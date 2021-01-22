@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/screens/profile/about.dart';
-import 'package:roadmap/screens/profile/contact.dart';
-import 'package:roadmap/screens/profile/profile_detail.dart';
+import 'package:roadmap/screens/profile/profile_Details/profile_detail.dart';
 import 'package:roadmap/utilities/AppTheme.dart';
 import 'package:roadmap/utilities/Shared.dart';
+
+import 'contact/contact.dart';
+
 
 class UserProfile extends StatefulWidget {
   UserProfile({Key key}) : super(key: key);
@@ -62,7 +64,7 @@ class _UserProfileState extends State<UserProfile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                      MaterialPageRoute(builder: (context) => UserProfileScreen()),
                     );
                   },
                 ),

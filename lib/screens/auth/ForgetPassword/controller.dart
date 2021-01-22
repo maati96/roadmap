@@ -8,11 +8,10 @@ ServerGate serverGate = ServerGate();
 class ForgetPasswordController {
   Future<CustomResponse> forgetPassword({
     String email,
-    String password,
   }) async {
 //    SharedPreferences _pref = await SharedPreferences.getInstance();
     CustomResponse response =
-        await serverGate.postData(url: 'rest-auth/password/reset/', body: {
+        await serverGate.postData(url:'rest-auth/password/reset/', body: {
       "email": email,
     }, headers: {
       'Accept': '*/*',

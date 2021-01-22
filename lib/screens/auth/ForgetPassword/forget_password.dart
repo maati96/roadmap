@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:roadmap/screens/auth/ForgetPassword/controller.dart';
 import 'package:roadmap/screens/auth/ForgetPassword/new_password.dart';
@@ -85,46 +86,52 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Container(
-                  child: authLogo(
-                      context: context,
-                      welcomeMessage: "نسيت كلمة المرور",
-                      title:
-                          "ادخل البريد الآلكتروني الذي قمت بالتسجيل من خلاله لانشاء كلمة مرور جديدة"),
+        body: _loading
+            ? Center(
+                child: CupertinoActivityIndicator(
+                animating: true,
+                radius: 30,
+              ))
+            : SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Container(
+                        child: authLogo(
+                            context: context,
+                            welcomeMessage: "نسيت كلمة المرور",
+                            title:
+                                "ادخل البريد الآلكتروني الذي قمت بالتسجيل من خلاله لانشاء كلمة مرور جديدة"),
+                      ),
+                      textFormField(
+                        context: context,
+                        labelText: "ادخل البريد الالكتروني",
+                        onChanged: (val) {
+                          email = val;
+                        },
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return "البريك الالكتروني مطلوب";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 60,
+                      ),
+                      btn(
+                        context: context,
+                        txt: "متابعة",
+                        onTap: () {
+                          _submit(context);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                textFormField(
-                  context: context,
-                  labelText: "ادخل البريد الالكتروني",
-                  onChanged: (val) {
-                    email = val;
-                  },
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return "البريك الالكتروني مطلوب";
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 60,
-                ),
-                btn(
-                  context: context,
-                  txt: "متابعة",
-                  onTap: () {
-                    _submit(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

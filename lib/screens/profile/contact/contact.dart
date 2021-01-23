@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:roadmap/screens/profile/contact/controller.dart';
@@ -15,7 +17,7 @@ class _ContactState extends State<Contact> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _loading = false;
   ContactUsController _controller = ContactUsController();
-  String message;
+  String message,email;
   int sender = 1;
   void _submit(BuildContext context) {
     if (!_formKey.currentState.validate())
@@ -24,7 +26,7 @@ class _ContactState extends State<Contact> {
       setState(() {
         _loading = true;
       });
-      _controller.postData(message: message, sender: sender).then((response) {
+      _controller.postData(message: message, sender: email).then((response) {
         print(response.statusCode.toString() + "<<<<<<<<<<<<<<<   status");
         if (response.success) {
           Toast.show("تم ارسال الرسالة بنجاح", context);
@@ -56,7 +58,7 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
-    final messageController = TextEditingController();
+//    final messageController = TextEditingController();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -65,13 +67,7 @@ class _ContactState extends State<Contact> {
           title: Text("تواصل معنا "),
           centerTitle: true,
         ),
-        body: _loading
-            ? Center(
-                child: CupertinoActivityIndicator(
-                animating: true,
-                radius: 30,
-              ))
-            : SingleChildScrollView(
+        body: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -87,9 +83,32 @@ class _ContactState extends State<Contact> {
                         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                         child: TextFormField(
                           onChanged: (val) {
+                            email = val;
+                          },
+                          validator: (val){
+                            if(val.isEmpty){
+                              return "email is required";
+                            }else return null ;
+                          },
+//                          controller: messageController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            labelText: 'البريد الاكترونى',
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
+                          maxLines: 1,
+                        ),
+                      ),
+                      SizedBox(height: 20,),  Padding(
+                        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+                        child: TextFormField(
+                          onChanged: (val) {
                             message = val;
                           },
-                          controller: messageController,
+//                          controller: messageController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -98,15 +117,29 @@ class _ContactState extends State<Contact> {
                           ),
                           keyboardType: TextInputType.text,
                           style: TextStyle(fontSize: 16.0, color: Colors.black),
-                          maxLines: 10,
+                          maxLines: 10,validator: (val){
+                          if(val.isEmpty){
+                            return "message is required";
+                          }else return null ;
+                        },
                         ),
                       ),
+                      SizedBox(height: 20,),
                       Container(
                         padding: EdgeInsets.all(15),
-                        child: btn(
+                        child:
+                        _loading
+                            ? Center(
+                            child: CupertinoActivityIndicator(
+                              animating: true,
+                              radius: 30,
+                            ))
+                            :
+                        btn(
                             context: context,
                             txt: "ارسال الرسالة",
                             onTap: () {
+                              print(">>>>>>>>>>>>>>>>>>>> $email >>>>>>>>>>> $message");
                               _submit(context);
                             }),
                       ),

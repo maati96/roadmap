@@ -5,7 +5,7 @@ ServerGate _serverGate = ServerGate();
 
 class ContactUsController {
 
-  Future<CustomResponse> postData({String message, int sender}) async {
+  Future<CustomResponse> postData({String message, String sender}) async {
     SharedPreferences _shared = await SharedPreferences.getInstance();
     String token = _shared.getString("token");
 

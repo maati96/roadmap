@@ -11,11 +11,12 @@ Widget btn({BuildContext context, String txt, Function onTap}) {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-              colors: [Color(getColorHexFromStr("#E12160")), Color(getColorHexFromStr("#3F5CC8"))],
-              begin: FractionalOffset.centerLeft,
-              end: FractionalOffset.centerRight,
-            ),
+            color: Color(getColorHexFromStr("#E12160")),
+//            gradient: LinearGradient(
+//              colors: [Color(getColorHexFromStr("#E12160")), Color(getColorHexFromStr("#3F5CC8"))],
+//              begin: FractionalOffset.centerLeft,
+//              end: FractionalOffset.centerRight,
+//            ),
           ),
           width: MediaQuery.of(context).size.width * .9,
           height: 50,
